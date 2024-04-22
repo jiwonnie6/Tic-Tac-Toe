@@ -1,117 +1,3 @@
-// const prompt = require("prompt-sync")({ sigint: true });
-
-// const Gameboard = {
-//   board:[ 
-//     " ", " ", " ",
-//     " ", " ", " ",
-//     " ", " ", " "
-//   ],
-
-//   winnings:[
-//     // rows
-//     [0, 1, 2],
-//     [3, 4, 5],
-//     [6, 7, 8],
-
-//     // columns
-//     [0, 3, 6],
-//     [1, 4, 7],
-//     [2, 5, 8],
-
-//     // diagonals
-//     [0, 4, 8],
-//     [2, 4, 6]
-//   ],
-
-//   boardgame() {
-//     return this.board;
-//   },
-
-//   checkWins() {
-//     // wins = this.winnings;
-
-//     for(win of this.winnings) {
-//       const [a, b, c] = win;
-
-//       if(this.board[a] !== ' ' && this.board[a] === this.board[b] && this.board[b] === this.board[c]){
-//         return true;
-//       }
-//     }
-//     return false;
-//   },
-
-//   checkTie() {
-//     for(board of this.board) {
-//       if(board === ' ') {
-//         return false;
-//       }
-//     }
-//     return true;
-//   },
-
-//   taken(playerPick) {
-//     return this.board[playerPick] != ' ';
-//   },
-
-//   invalidInput(playerPick) {
-//     if(playerPick > 9 || playerPick < 0){
-//       return true;
-//     }
-//   }
-
-// };
-
-// const Players = {
-
-//   player: 'X',
-
-//   switchPlayers() {
-//     if (Players.player === 'X') {
-//       Players.player = 'O';
-//     }
-//     else {
-//       Players.player = 'X'
-//     }
-//   }
-// };
-
-// const Game = {
-//   start() {
-
-//     let board = Gameboard.boardgame();
-
-//     while(!Gameboard.checkTie()){
-
-//       console.log(board);
-
-//       let pick = prompt("player " + Players.player + " choose a number (0-8): ");
-
-//       if(Gameboard.taken(pick) == true || Gameboard.invalidInput(pick) == true) {
-//         console.log('invalid input or you cannot choose this space. pick a different cell.');
-//       }
-//       else {
-//         board[pick] = Players.player;
-
-//         if(Gameboard.checkWins() == true) {
-//           console.log(board);
-//           console.log('player ' + Players.player + ' won');
-//           break;
-//         }
-
-//         Players.switchPlayers();
-//       }
-//     }
-
-//     if(Gameboard.checkTie() == true && Gameboard.checkWins() == false) {
-//       console.log(board);
-//       console.log('this game is a tie');
-//     } 
-//   }
-// };
-
-// Game.start();
-
-
 
 const Gameboard = {
   board:[ 
@@ -167,11 +53,33 @@ const Gameboard = {
 
 const Players = {
 
-  player: 'X',
+  // player: switchPlayers().player,
+  player: null,
 
   switchPlayers() {
-    this.player = (this.player === 'X') ? 'O' : 'X';
+
+    document.getElementById('playButton').addEventListener('click', function() {
+      const player1 = document.getElementById("player1-name").value;
+      const player2 = document.getElementById("player2-name").value;
+      const leftInstructions = document.getElementById("left-instructions");
+
+      Players.player = (Players.player === player1) ? player2 : player1;
+      leftInstructions.innerHTML = "Player " + Players.player + " turn!";
+    }); 
+
+    // this.player = player1;
+    // return this.player;
+
+  },
+
+  getCurrentPlayer() {
+    return Players.player;
   }
+
+  // switchPlayers() {
+  //   const player1 = document.getElementById("player1-name").value;
+  //   this.player = (this.player === 'X') ? 'O' : 'X';
+  // }
 };
 
 const Game = {
@@ -184,20 +92,17 @@ const Game = {
 
     let board = Gameboard.boardgame();
 
-    leftInstructions.innerHTML = "Player " + Players.player + " turn!";
+    Players.switchPlayers();
+    leftInstructions.innerHTML = "Player " + Players.getCurrentPlayer()+ " turn!";
 
     function cellsClicked(e) {
       if (this.gameOver) return;
 
-      // const cell = e.target.id;
-      // const index = parseInt(cell.split("-")[1]) - 1;
-
-      // const clickedCell = document.getElementById(cell);
-
       const cell = e.target;
       const index = parseInt(cell.id.split("-")[1]) - 1;
 
-      leftInstructions.innerHTML = "Player " + Players.player + " turn!";
+      // Players.switchPlayers();
+      // leftInstructions.innerHTML = "Player " + Players.getCurrentPlayer() + " turn!";
 
       if(!Gameboard.taken(cell)) {
         cell.innerHTML = Players.player;

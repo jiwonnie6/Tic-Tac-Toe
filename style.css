@@ -1,5 +1,5 @@
 body {
-  font-family: "Press Start 2P", system-ui;
+  font-family: "Press Start 2P", system-ui !important;
   font-weight: 400;
   font-style: normal;
 
@@ -17,17 +17,94 @@ body {
   border: 1px solid red;
 }
 
+.header {
+  border: 3px solid rgb(250, 121, 121);
+  border-radius: 10px;
+  background-color: rgb(255, 244, 246);
+
+  /* border: 2px solid rgb(171, 250, 191);
+  border-radius: 15px;
+  background-color: rgb(230, 247, 234); */
+  
+  padding: 1em;
+  color: rgb(161, 74, 74);
+  /* border: 2px; */
+}
+
 /* main game */
 
 .main-outline {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  padding: 1em;
+  grid-gap: 25px;
+  /* grid-gap: 20px; */
 }
 
 /* left instructions // player info, turns, invalid notifications etc*/
 .left-instructions-outline {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  border: 1px solid red;
+}
+
+#left-instructions,
+.player-inputs {
+  border: 3px solid rgb(121, 168, 133);
+  border-radius: 8px;
+  background-color: rgb(230, 247, 234);
+  padding: 1.5em;
+  color: rgb(103, 198, 103);
+}
+
+.start-button,
+.play-button {
+  /* height: 30px;
+  width: 80px; */
+  padding: 0.5em;
+  border: 3px solid rgb(121, 168, 133);
+  border-radius: 8px;
+
+  background-color: rgb(230, 247, 234);
+  color: rgb(47, 177, 47);
+
+  font-size: 20px;
+  font-family: inherit;
+}
+
+.player1,
+.player2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.player1 > p,
+.player2 > p {
+  color: rgb(103, 198, 103);
+} 
+
+.player1 > input[type=text],
+.player2 > input[type=text] {
+  height: 25px;
+  width: 150px;
+  border: 3px solid rgb(178, 202, 185);
+  border-radius: 5px;
+}
+
+.player1 > input[type=text]:focus,
+.player2 > input[type=text]:focus {
+  height: 25px;
+  width: 150px;
+  border: 3px solid rgb(134, 186, 146);
+  border-radius: 5px;
+  outline: none;
+  caret-color: rgb(87, 160, 87);
+  text-indent: 5px;
 }
 
 /* tic tac toe cells */
@@ -35,24 +112,39 @@ body {
   display: flex;
   justify-content: center;
   
-  border: 1px solid red;
+  /* border: 20px solid red; */
+
+  grid-gap: 20px;
 }
 
 #cells {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+
+  /* border-radius: 20px; */
 }
 
 #cells > div {
-  height: 200px;
-  width: 200px;
+  height: 140px;
+  width: 140px;
   
-  border: 1px solid red;
+  border: 18px solid rgb(248, 117, 117);
+  background-color: rgb(250, 218, 224);
+
+  border-radius: 30px;
+
+  color: rgb(184, 86, 86);
 
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 50px;
+}
+
+#cells > div:hover {
+  background-color: rgb(249, 172, 185);
+  border: 18px solid rgb(251, 92, 92);
 }
 
 /* right instructions // restart button, which player won, etc. */
