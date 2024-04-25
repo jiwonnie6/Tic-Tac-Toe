@@ -1,5 +1,5 @@
 body {
-  font-family: "Press Start 2P", system-ui !important;
+  font-family: "Press Start 2P", system-ui;
   font-weight: 400;
   font-style: normal;
 
@@ -142,6 +142,31 @@ body {
   font-size: 50px;
 }
 
+/* #cell-1,
+#cell-2,
+#cell-3,
+#cell-4,
+#cell-5,
+#cell-6,
+#cell-7,
+#cell-8,
+#cell-9 {
+  height: 140px;
+  width: 140px;
+  
+  border: 18px solid rgb(248, 117, 117);
+  background-color: rgb(250, 218, 224);
+
+  border-radius: 30px;
+
+  color: rgb(184, 86, 86);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+} */
+
 #cells > div:hover {
   background-color: rgb(249, 172, 185);
   border: 18px solid rgb(251, 92, 92);
@@ -152,4 +177,12 @@ body {
 .right-instructions-outline {
   display: flex;
   justify-content: center;
+}
+
+
+/* winning combo */
+.winning-combination {
+  background-color: rgb(246, 128, 144) !important;
+  border: 18px solid rgb(252, 56, 56) !important;
+  color: white !important;
 }

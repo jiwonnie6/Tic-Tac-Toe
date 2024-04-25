@@ -1,9 +1,8 @@
-
 const Gameboard = {
   board:[ 
     document.getElementById("cell-1").innerHTML, document.getElementById("cell-2").innerHTML, document.getElementById("cell-3").innerHTML,
     document.getElementById("cell-4").innerHTML, document.getElementById("cell-5").innerHTML, document.getElementById("cell-6").innerHTML,
-    document.getElementById("cell-7").innerHTML, document.getElementById("cell-8").innerHTML, document.getElementById("cell-9").innerHTML,
+    document.getElementById("cell-7").innerHTML, document.getElementById("cell-8").innerHTML, document.getElementById("cell-9").innerHTML
   ],
 
   winnings:[
@@ -30,7 +29,14 @@ const Gameboard = {
     for(win of this.winnings) {
       const [a, b, c] = win;
 
-      if(this.board[a] !== '' && this.board[a] === this.board[b] && this.board[b] === this.board[c]){
+      if(this.board[a] !== '' && this.board[a] === this.board[b] && this.board[b] === this.board[c]) {
+
+        // document.getElementById(`cell-${a}`).classList.add("winning-combination");
+        // document.getElementById(`cell-${b}`).classList.add("winning-combination");
+        // document.getElementById(`cell-${c}`).classList.add("winning-combination");
+        document.querySelector(`[data-index="${a}"]`).classList.add("winning-combination");
+        document.querySelector(`[data-index="${b}"]`).classList.add("winning-combination");
+        document.querySelector(`[data-index="${c}"]`).classList.add("winning-combination");
         return true;
       }
     }
@@ -47,39 +53,16 @@ const Gameboard = {
   },
 
   taken(playerPick) {
-    return playerPick.innerHTML === 'X' || playerPick.innerHTML === 'O';
+    return playerPick.innerHTML !== '';
   }
 };
 
 const Players = {
-
-  // player: switchPlayers().player,
   player: null,
 
-  switchPlayers() {
-
-    document.getElementById('playButton').addEventListener('click', function() {
-      const player1 = document.getElementById("player1-name").value;
-      const player2 = document.getElementById("player2-name").value;
-      const leftInstructions = document.getElementById("left-instructions");
-
-      Players.player = (Players.player === player1) ? player2 : player1;
-      leftInstructions.innerHTML = "Player " + Players.player + " turn!";
-    }); 
-
-    // this.player = player1;
-    // return this.player;
-
-  },
-
-  getCurrentPlayer() {
-    return Players.player;
+  switchPlayers(player1, player2) {
+    this.player = (this.player === player1) ? player2 : player1;
   }
-
-  // switchPlayers() {
-  //   const player1 = document.getElementById("player1-name").value;
-  //   this.player = (this.player === 'X') ? 'O' : 'X';
-  // }
 };
 
 const Game = {
@@ -92,44 +75,44 @@ const Game = {
 
     let board = Gameboard.boardgame();
 
-    Players.switchPlayers();
-    leftInstructions.innerHTML = "Player " + Players.getCurrentPlayer()+ " turn!";
+    document.getElementById("playButton").addEventListener("click", (e) => {
+      console.log('playbutton clicked');
+      const player1 = document.getElementById("player1-name").value;
+      const player2 = document.getElementById("player2-name").value;
 
-    function cellsClicked(e) {
-      if (this.gameOver) return;
+      Players.switchPlayers(player1, player2);
+      leftInstructions.innerHTML = "Player " + Players.player + " turn!";
 
-      const cell = e.target;
-      const index = parseInt(cell.id.split("-")[1]) - 1;
-
-      // Players.switchPlayers();
-      // leftInstructions.innerHTML = "Player " + Players.getCurrentPlayer() + " turn!";
-
-      if(!Gameboard.taken(cell)) {
-        cell.innerHTML = Players.player;
-        board[index] = Players.player;
-
-        console.log(board);
-        
-        if(Gameboard.checkWins()) {
-          rightInstructions.innerHTML = "Winner: Player " + Players.player;
-          leftInstructions.innerHTML = '';
-          this.gameOver = true;
-        }
-        else if(Gameboard.checkTie() && Gameboard.checkWins() == false) {
-          rightInstructions.innerHTML = "Tie!";
-          leftInstructions.innerHTML = '';
-          this.gameOver = true;
+      function cellsClicked(e) {
+        if (this.gameOver) return;
+  
+        const cell = e.target;
+        const index = parseInt(cell.id.split("-")[1]) - 1;
+  
+        if(!Gameboard.taken(cell)) {
+          cell.innerHTML = Players.player;
+          board[index] = Players.player;
+  
+          console.log(board);
+          
+          if(Gameboard.checkWins()) {
+            rightInstructions.innerHTML = "Winner: Player " + Players.player;
+            leftInstructions.innerHTML = '';
+            this.gameOver = true;
+          } else if(Gameboard.checkTie() && Gameboard.checkWins() == false) {
+            rightInstructions.innerHTML = "Tie!";
+            leftInstructions.innerHTML = '';
+            this.gameOver = true;
+          } else {
+            Players.switchPlayers(player1, player2);
+            leftInstructions.innerHTML = "Player " + Players.player + " turn!";
+          }
         } else {
-          Players.switchPlayers();
-          leftInstructions.innerHTML = "Player " + Players.player + " turn!";
+          leftInstructions.innerHTML = "Pick a different box! Player " + Players.player + " turn!";
         }
-      } else {
-        leftInstructions.innerHTML = "Pick a different box! Player " + Players.player + " turn!";
-      }
-
-    };
-
-    cells.addEventListener("click", cellsClicked);
+      };
+      cells.addEventListener("click", cellsClicked.bind(this));
+    });
   }
 };
 
