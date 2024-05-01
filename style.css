@@ -13,74 +13,117 @@ body {
   justify-content: center;
 
   padding: 1em;
-
-  border: 1px solid red;
 }
 
 .header {
   border: 3px solid rgb(250, 121, 121);
   border-radius: 10px;
   background-color: rgb(255, 244, 246);
-
-  /* border: 2px solid rgb(171, 250, 191);
-  border-radius: 15px;
-  background-color: rgb(230, 247, 234); */
+  font-size: 20px;
   
   padding: 1em;
   color: rgb(161, 74, 74);
-  /* border: 2px; */
 }
 
 /* main game */
 
 .main-outline {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* grid-template-columns: repeat(2, 1fr); */
+  grid-template-columns: 30% 80%;
   padding: 1em;
-  grid-gap: 25px;
-  /* grid-gap: 20px; */
 }
 
 /* left instructions // player info, turns, invalid notifications etc*/
 .left-instructions-outline {
+  margin-left: 350px;
+
+  position: relative;
   display: flex;
+  text-align: center;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  /* flex-direction: column; */
 
-  border: 1px solid red;
+  /* padding: 10em; */
+  /* border: 1px solid red; */
 }
 
 #left-instructions,
 .player-inputs {
-  border: 3px solid rgb(121, 168, 133);
-  border-radius: 8px;
+  min-width: 400px;
+  position: absolute;
+  border: 4px solid rgb(121, 168, 133);
+  border-radius: 15px;
   background-color: rgb(230, 247, 234);
   padding: 1.5em;
   color: rgb(103, 198, 103);
 }
 
-.start-button,
-.play-button {
-  /* height: 30px;
-  width: 80px; */
+.start {
+  position: absolute;
+}
+
+.start-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
   padding: 0.5em;
-  border: 3px solid rgb(121, 168, 133);
+  border: 4px solid rgb(121, 168, 133);
+  border-radius: 15px;
+
+  background-color: rgb(230, 247, 234);
+  color: rgb(47, 177, 47);
+
+  font-size: 35px;
+  font-family: inherit;
+}
+
+.start-button > img {
+  animation: upDown 1s infinite  alternate;
+}
+
+@keyframes upDown {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px);}
+}
+
+.start-button:hover {
+  border: 4px solid rgb(71, 169, 96);
+  background-color: rgb(171, 237, 186);
+}
+
+.play-button {
+  padding: 0.5em;
+  border: 3px solid rgb(121, 168, 133);;
   border-radius: 8px;
 
   background-color: rgb(230, 247, 234);
   color: rgb(47, 177, 47);
 
-  font-size: 20px;
+  font-size: 19px;
   font-family: inherit;
 }
 
+.play-button:hover {
+  border: 3px solid rgb(71, 169, 96);
+  background-color: rgb(196, 251, 209);
+}
+
 .player1,
-.player2 {
+.player2,
+.play-game-button {
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
+  padding-bottom: 10px;
+  gap: 12px;
+}
+
+.play-game-button {
+  padding-top: 12px;
 }
 
 .player1 > p,
@@ -94,6 +137,7 @@ body {
   width: 150px;
   border: 3px solid rgb(178, 202, 185);
   border-radius: 5px;
+  text-indent: 5px;
 }
 
 .player1 > input[type=text]:focus,
@@ -107,12 +151,32 @@ body {
   text-indent: 5px;
 }
 
+.restart-button {
+  position: relative;
+  top: 70px;
+  padding: 1em;
+  border: 3px solid rgb(253, 98, 98);
+  border-radius: 15px;
+
+  background-color: rgb(248, 160, 160);
+  color: rgb(251, 1, 1);
+
+  font-size: 12px;
+  font-family: inherit;
+}
+
+.restart-button:hover {
+  border: 3px solid rgb(250, 55, 55);
+  background-color: rgb(252, 124, 124);
+  color: rgb(255, 255, 255);
+}
+
 /* tic tac toe cells */
 .cells-outline {
   display: flex;
   justify-content: center;
   
-  /* border: 20px solid red; */
+  /* border: 1px solid red; */
 
   grid-gap: 20px;
 }
@@ -121,8 +185,6 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
-
-  /* border-radius: 20px; */
 }
 
 #cells > div {
@@ -142,31 +204,6 @@ body {
   font-size: 50px;
 }
 
-/* #cell-1,
-#cell-2,
-#cell-3,
-#cell-4,
-#cell-5,
-#cell-6,
-#cell-7,
-#cell-8,
-#cell-9 {
-  height: 140px;
-  width: 140px;
-  
-  border: 18px solid rgb(248, 117, 117);
-  background-color: rgb(250, 218, 224);
-
-  border-radius: 30px;
-
-  color: rgb(184, 86, 86);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 50px;
-} */
-
 #cells > div:hover {
   background-color: rgb(249, 172, 185);
   border: 18px solid rgb(251, 92, 92);
@@ -179,10 +216,9 @@ body {
   justify-content: center;
 }
 
-
 /* winning combo */
 .winning-combination {
   background-color: rgb(246, 128, 144) !important;
-  border: 18px solid rgb(252, 56, 56) !important;
+  border: 18px solid rgb(252, 70, 70) !important;
   color: white !important;
 }
