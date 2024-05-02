@@ -56,10 +56,26 @@ const Gameboard = {
 
 const Players = {
   player:null,
-  symbols:{},
+  // symbols:{},
+  symbol:null,
+  // symbols: {
+  //   player1: "X",
+  //   player2: "O"
+  // },
+
+
+  // switchPlayers(player1, player2) {
+  //   console.log("switchplayers- ", player1, player2)
+  //   this.player = (this.player === player1) ? player2 : player1;
+  //   this.symbol = (this.symbol === 'X') ? "O ": "X";
+  //   // this.player = (this.player === 'X') ? "O" : "X";
+  // }
 
   switchPlayers(player1, player2) {
+    console.log("switchplayers- ", player1, player2)
     this.player = (this.player === player1) ? player2 : player1;
+    this.symbol = (this.symbol === 'X') ? 'O': 'X';
+    // this.player = (this.player === 'X') ? "O" : "X";
   }
 };
 
@@ -67,7 +83,6 @@ const Game = {
   gameOver:false,
 
   start() {
-    console.log("game started");
     const leftInstructions = document.getElementById("left-instructions");
     const cells = document.getElementById("cells");
 
@@ -75,14 +90,9 @@ const Game = {
 
     let player1 = '';
     let player2 = '';
-
-    Players.symbols[player1] = '';
-    Players.symbols[player2] = '';
     
     // start button click
     document.getElementById("startButton").addEventListener("click", (e) => {
-      // console.log('start button clicked');
-      console.log("Before starting the game - Player: ", Players.player);
       document.getElementById("start").style.visibility = "hidden";
       document.getElementById("playerInputs").style.visibility = "visible";
     }, {once:true}); 
@@ -91,45 +101,38 @@ const Game = {
     document.getElementById("playButton").addEventListener("click", (e) => {
       document.getElementById("playerInputs").style.visibility = "hidden";
       document.getElementById("left-instructions").style.visibility = "visible";
+      document.getElementById("board").style.visibility = "visible";
 
-      console.log('playbutton clicked');
+      Players.player = null;
+      Players.symbol = null;
+
       player1 = document.getElementById("player1-name").value;
       player2 = document.getElementById("player2-name").value;
 
       console.log("player1 = " + player1);
       console.log("player2 = " + player2);
 
-      Players.symbols[player1] = 'X';
-      Players.symbols[player2] = 'O';
-
-      console.log("player1 symbol = " + Players.symbols[player1]);
-      console.log("player2 symbol = " + Players.symbols[player2]);
-
       console.log("Before switching players - Player: ", Players.player);
+      console.log("Before switching symbols - symbols: ", Players.symbol);
       Players.switchPlayers(player1, player2);
-      leftInstructions.innerHTML =  "Player " + Players.player + " turn!</br>" + "You are " + Players.symbols[Players.player] + ".";
-      console.log("After switching players - Player: ", Players.player);
+      leftInstructions.innerHTML =  "Player " + Players.player + " turn!</br>" + "You are " + Players.symbol + ".";
     });
-    
+
     // click on cells
     cells.addEventListener("click", (e) => {
       if(Game.gameOver) return;
-
-      console.log("cell is clicked");
 
       const cell = e.target;
       const index = parseInt(cell.id.split("-")[1]) - 1;
 
       if(!Gameboard.taken(cell)) {
-        console.log("cell is not taken");
-        cell.innerHTML = Players.symbols[Players.player];
+        cell.innerHTML = Players.symbol;
         board[index] = Players.player;
 
         console.log(board);
-        
+
         if(Gameboard.checkWins()) {
           leftInstructions.innerHTML = "Winner: Player " + Players.player;
-          console.log("winner= player" + Players.player);
           document.getElementById("restartButton").style.visibility = "visible";
           Game.gameOver = true;
         } else if(Gameboard.checkTie() && Gameboard.checkWins() == false) {
@@ -137,10 +140,8 @@ const Game = {
           document.getElementById("restartButton").style.visibility = "visible";
           Game.gameOver = true;
         } else {
-          console.log("beofre switching players - Player: ", Players.player);
           Players.switchPlayers(player1, player2);
-          console.log("After switching players - Player: ", Players.player);
-          leftInstructions.innerHTML = "Player " + Players.player + " turn!</br>" + "You are " + Players.symbols[Players.player] + ".";;
+          leftInstructions.innerHTML =  "Player " + Players.player + " turn!</br>" + "You are " + Players.symbol + ".";
         }
       } 
       // else {
@@ -151,7 +152,7 @@ const Game = {
 
     document.getElementById("restartButton").addEventListener("click", (e) => {
       Game.restart();
-      // Game.start();
+      Game.start();
     });   
   },
 
@@ -159,7 +160,7 @@ const Game = {
     Game.gameOver = false;
 
     Players.player = null;
-    Players.symbols = {};
+    Players.symbol = null;
 
     const cells = document.getElementById("cells");
     cells.querySelectorAll("div").forEach((cell, index) => {
@@ -178,9 +179,6 @@ const Game = {
     document.getElementById("playerInputs").style.visibility = "hidden";
     document.getElementById("restartButton").style.visibility = "hidden";
     document.getElementById("left-instructions").style.visibility = "hidden";
-
-    // Players.player = 'player1';
-    Game.start();
   }
 };
 

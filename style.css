@@ -28,40 +28,62 @@ body {
 /* main game */
 
 .main-outline {
-  display: grid;
-  /* grid-template-columns: repeat(2, 1fr); */
+  /* display: grid;
+  grid-template-columns: repeat(2, 1fr);
   grid-template-columns: 30% 80%;
-  padding: 1em;
+  padding: 1em; */
+
+
+  display: grid;
+  grid-template-rows: 2;
+  /* display: flex;
+  justify-content: center; */
+  /* align-items: center; */
+
+  border: 1px solid red;
 }
 
 /* left instructions // player info, turns, invalid notifications etc*/
 .left-instructions-outline {
-  margin-left: 350px;
-
+  border: 1px solid red;
   position: relative;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  /* flex-direction: column; */
-
-  /* padding: 10em; */
-  /* border: 1px solid red; */
 }
 
-#left-instructions,
+.start {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid red;
+}
+
 .player-inputs {
-  min-width: 400px;
-  position: absolute;
   border: 4px solid rgb(121, 168, 133);
   border-radius: 15px;
   background-color: rgb(230, 247, 234);
   padding: 1.5em;
   color: rgb(103, 198, 103);
+
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.start {
+.left-instructions-div {
   position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 400px;
+}
+
+#left-instructions {
+  border: 4px solid rgb(121, 168, 133);
+  border-radius: 15px;
+  background-color: rgb(230, 247, 234);
+  padding: 1.5em;
+  color: rgb(103, 198, 103);
+  text-align: center;
 }
 
 .start-button {
@@ -93,6 +115,10 @@ body {
 .start-button:hover {
   border: 4px solid rgb(71, 169, 96);
   background-color: rgb(171, 237, 186);
+}
+
+.player-inputs {
+  border: 1px solid red;
 }
 
 .play-button {
@@ -188,8 +214,8 @@ body {
 }
 
 #cells > div {
-  height: 140px;
-  width: 140px;
+  height: 115px;
+  width: 115px;
   
   border: 18px solid rgb(248, 117, 117);
   background-color: rgb(250, 218, 224);
