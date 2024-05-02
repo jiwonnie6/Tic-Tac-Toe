@@ -17,7 +17,7 @@
     </div>
 
     <div class="main-outline">
-      <div class="left-instructions-outline">
+      <div class="instructions-outline">
         <div class="start" id="start">
           <button class="start-button" id="startButton"> 
             <img src="png/frog.png" alt="frog" class="frog">
@@ -25,23 +25,39 @@
             <img src="png/turtle.png" alt="turtle" class="turtle">
           </button>
         </div>
-        <div class="player-inputs" id="playerInputs" style="visibility:hidden">
-          <div class="player1">
-            <p>Player 1:</p>
-            <input type="text" id="player1-name">
-          </div>
-          <div class="player2">
-            <p>Player 2:</p>
-            <input type="text" id="player2-name">
-          </div>
-          <div class="play-game-button">
-            <button class="play-button" id="playButton">Let's play!</button>
+        <div class="inputs">
+          <div class="player-inputs" id="playerInputs" style="visibility:hidden">
+            <div class="player1">
+              <p>Player 1:</p>
+              <input type="text" id="player1-name">
+            </div>
+            <div class="player2">
+              <p>Player 2:</p>
+              <input type="text" id="player2-name">
+            </div>
+            <div class="play-game-button">
+              <button class="play-button" id="playButton">Let's play!</button>
+            </div>
           </div>
         </div>
-        <div class="left-instructions-div">
-          <p id="left-instructions" style="visibility:hidden"></p>
+        <div class="instructions-div">
+          <div class="middle">
+            <p id="middle-instructions" style="visibility:hidden"></p>
+          </div>
+          <div class="left">
+            <p id="left-instructions" style="visibility:hidden"></p>
+          </div>
+          <div class="restart">
+            <button class="restart-button" id="restartButton" style="visibility:hidden">Restart</button>
+          </div>
+          <div class="right">
+            <p id="right-instructions" style="visibility:hidden"></p>
+          </div>
         </div>
-        <button class="restart-button" id="restartButton" style="visibility:hidden">Restart</button>
+        <!-- <div class="restart">
+          <button class="restart-button" id="restartButton" style="visibility:hidden">Restart</button>
+        </div> -->
+        <!-- <button class="restart-button" id="restartButton" style="visibility:hidden">Restart</button> -->
       </div>
   
       <div class="cells-outline" id="board" style="visibility:hidden">

@@ -84,6 +84,8 @@ const Game = {
 
   start() {
     const leftInstructions = document.getElementById("left-instructions");
+    const rightInstructions = document.getElementById("right-instructions");
+    const middleInstructions = document.getElementById("middle-instructions");
     const cells = document.getElementById("cells");
 
     let board = Gameboard.boardgame();
@@ -100,7 +102,9 @@ const Game = {
     //lets play button click
     document.getElementById("playButton").addEventListener("click", (e) => {
       document.getElementById("playerInputs").style.visibility = "hidden";
-      document.getElementById("left-instructions").style.visibility = "visible";
+      leftInstructions.style.visibility = "visible";
+      rightInstructions.style.visibility = "visible";
+      middleInstructions.style.visibility = "visible";
       document.getElementById("board").style.visibility = "visible";
 
       Players.player = null;
@@ -115,7 +119,13 @@ const Game = {
       console.log("Before switching players - Player: ", Players.player);
       console.log("Before switching symbols - symbols: ", Players.symbol);
       Players.switchPlayers(player1, player2);
-      leftInstructions.innerHTML =  "Player " + Players.player + " turn!</br>" + "You are " + Players.symbol + ".";
+      // leftInstructions.innerHTML =  "Player " + Players.player + " turn!</br>" + "You are " + Players.symbol + ".";
+
+      // middleInstructions.innerHTML =  "Player " + Players.player + " turn!</br>" + "You are " + Players.symbol + ".";
+      middleInstructions.innerHTML =  "Player " + Players.player + " turn!";
+
+      leftInstructions.innerHTML =  "X<br>Player " + Players.player;
+      rightInstructions.innerHTML =  "O<br>Player " + Players.player;
     });
 
     // click on cells
@@ -132,16 +142,17 @@ const Game = {
         console.log(board);
 
         if(Gameboard.checkWins()) {
-          leftInstructions.innerHTML = "Winner: Player " + Players.player;
+          middleInstructions.innerHTML = "Winner: Player " + Players.player;
           document.getElementById("restartButton").style.visibility = "visible";
           Game.gameOver = true;
         } else if(Gameboard.checkTie() && Gameboard.checkWins() == false) {
-          leftInstructions.innerHTML = "Tie!";
+          middleInstructions.innerHTML = "Tie!";
           document.getElementById("restartButton").style.visibility = "visible";
           Game.gameOver = true;
         } else {
           Players.switchPlayers(player1, player2);
-          leftInstructions.innerHTML =  "Player " + Players.player + " turn!</br>" + "You are " + Players.symbol + ".";
+          // middleInstructions.innerHTML =  "Player " + Players.player + " turn!</br>" + "You are " + Players.symbol + ".";
+          middleInstructions.innerHTML =  "Player " + Players.player + " turn!";
         }
       } 
       // else {
