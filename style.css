@@ -37,7 +37,9 @@ body {
 .instructions-outline {
   /* border: 1px solid red; */
   position: relative;
-  /* height: auto; */
+
+  display: flex;
+  justify-content: center;
 }
 
 .start {
@@ -45,14 +47,6 @@ body {
   justify-content: center;
   align-items: center;
   padding: 1em;
-}
-
-.player-inputs {
-  border: 4px solid rgb(121, 168, 133);
-  border-radius: 15px;
-  background-color: rgb(230, 247, 234);
-  padding: 1.5em;
-  color: rgb(103, 198, 103);
 
   position: absolute;
   top: 16px;
@@ -60,21 +54,27 @@ body {
   transform: translateX(-50%);
 }
 
-.instructions-div {
+.player-inputs {
+  border: 4px solid rgb(121, 168, 133);
+  border-radius: 15px;
+  background-color: rgb(230, 247, 234);
+  padding: 1em;
+  color: rgb(103, 198, 103);
+
   position: absolute;
-  top: 0;
+  top: 16px;
   left: 50%;
   transform: translateX(-50%);
-  min-width: 460px;
 
-  pointer-events: none;
-  display: flex;
+  height: 150px;
+}
 
+.instructions-div {
   display: grid;
   grid-template-rows: 2;
   grid-template-columns: 3;
 
-  /* z-index: 1; */
+  width: 450px;
 }
 
 #left-instructions,
@@ -83,10 +83,14 @@ body {
   border-radius: 15px;
   background-color: rgb(230, 247, 234);
   padding: 1em;
+  /* padding-top: 10px;
+  padding-bottom: 10px; */
   color: rgb(103, 198, 103);
   text-align: center;
   margin: 0;
-  /* width: 110px; */
+  font-size: 12px;
+
+  width: 155px;
 }
 
 #middle-instructions {
@@ -99,17 +103,17 @@ body {
   margin: 0;
 }
 
-/* .right {
+.right {
   display: flex;
   justify-content: right;
-  flex-grow: 1;
-} */
+  /* flex-grow: 1; */
+}
 
 .right,
 .left {
   /* min-width: 20px; */
   grid-row: 2;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .middle {
@@ -133,17 +137,23 @@ body {
   background-color: rgb(230, 247, 234);
   color: rgb(47, 177, 47);
 
-  font-size: 35px;
+  font-size: 15px;
   font-family: inherit;
 }
 
 .start-button > img {
   animation: upDown 1s infinite  alternate;
+  /* font-size: 1px; */
+}
+
+.frog,
+.turtle {
+  width: 40px;
 }
 
 @keyframes upDown {
   0% { transform: translateY(0); }
-  100% { transform: translateY(-10px);}
+  100% { transform: translateY(-5px);}
 }
 
 .start-button:hover {
@@ -159,8 +169,10 @@ body {
   background-color: rgb(230, 247, 234);
   color: rgb(47, 177, 47);
 
-  font-size: 19px;
+  font-size: 15px;
   font-family: inherit;
+
+  margin-top: -25px;
 }
 
 .play-button:hover {
@@ -174,12 +186,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 10px;
+  /* padding-bottom: 10px; */
   gap: 12px;
 }
 
 .play-game-button {
-  padding-top: 12px;
+  padding-top: 40px;
 }
 
 .player1 > p,
@@ -209,13 +221,13 @@ body {
 
 .restart {
   grid-row: 2;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   justify-content: center;
   align-items: center;
 
-  position: relative;
-  z-index: 1;
+  /* position: relative; */
+  /* z-index: 1; */
 }
 
 .restart-button {
@@ -230,8 +242,8 @@ body {
   font-size: 8px;
   font-family: inherit;
 
-  position: relative;
-  z-index: 1;
+  /* position: relative; */
+  /* z-index: 1; */
 }
 
 .restart-button:hover {
@@ -239,8 +251,8 @@ body {
   background-color: rgb(252, 124, 124);
   color: rgb(255, 255, 255);
 
-  position: relative;
-  z-index: 1;
+  /* position: relative; */
+  /* z-index: 1; */
 }
 
 /* tic tac toe cells */
@@ -248,13 +260,13 @@ body {
   display: flex;
   justify-content: center;
 
-  padding: 2.5em;
+  padding: 1em;
 }
 
 #cells {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 10px;
+  gap: 10px;
 }
 
 #cells > div {
@@ -279,16 +291,19 @@ body {
   border: 18px solid rgb(251, 92, 92);
 }
 
-/* right instructions // restart button, which player won, etc. */
-
-.right-instructions-outline {
-  display: flex;
-  justify-content: center;
-}
-
-/* winning combo */
+/* winning combo, logo, added classlists */
 .winning-combination {
   background-color: rgb(246, 128, 144) !important;
   border: 18px solid rgb(252, 70, 70) !important;
   color: white !important;
+}
+
+.logo {
+  font-size: 15px;
+  color: rgb(4, 132, 4);
+  text-decoration: underline 2px solid rgb(0, 35, 0);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
