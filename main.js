@@ -67,6 +67,30 @@ const Game = {
   gameOver:false,
 
   start() {
+    let player1 = '';
+    let player2 = '';
+    
+    // start button click
+    Game.startButtonClick();
+
+    // play button click // cells click
+    Game.playButtonClick(player1, player2);
+
+    // restart button click
+    document.getElementById("restartButton").addEventListener("click", (e) => {
+      Game.restart();
+      Game.start();
+    }, { once: true });   
+  },
+
+  startButtonClick() {
+    document.getElementById("startButton").addEventListener("click", (e) => {
+      document.getElementById("start").style.visibility = "hidden";
+      document.getElementById("playerInputs").style.visibility = "visible";
+    }, {once:true}); 
+  },
+
+  playButtonClick(player1, player2) {
     const playerInputs = document.getElementById("playerInputs");
     const leftInstructions = document.getElementById("left-instructions");
     const rightInstructions = document.getElementById("right-instructions");
@@ -74,27 +98,21 @@ const Game = {
     const restartButton = document.getElementById("restartButton");
     const cells = document.getElementById("cells");
 
-    let board = Gameboard.boardgame();
-
-    let player1 = '';
-    let player2 = '';
-    
-    // start button click
-    document.getElementById("startButton").addEventListener("click", (e) => {
-      document.getElementById("start").style.visibility = "hidden";
-      document.getElementById("playerInputs").style.visibility = "visible";
-    }, {once:true}); 
-
-    //lets play button click
-    document.getElementById("playButton").addEventListener("click", (e) => {
+    const playButtonHandler = () => {
       player1 = document.getElementById("player1-name").value;
       player2 = document.getElementById("player2-name").value;
 
       if(player1 == player2 && player1 != '' && player2 != '') {
         window.alert("Player names cannot be the same.");
+        console.log("names cannot be same");
       } 
       else if (player1 == '' || player2 == '') {
         window.alert("Please enter in all fields.");
+        console.log("empty field");
+      }
+      else if (player1.length > 9 || player2.length > 9) {
+        window.alert("10 character limit.");
+        console.log("10 character limit");
       }
       else {
         playerInputs.style.visibility = "hidden";
@@ -107,18 +125,24 @@ const Game = {
         Players.player = null;
         Players.symbol = null;
 
-        // player1 = document.getElementById("player1-name").value;
-        // player2 = document.getElementById("player2-name").value;
-
         Players.switchPlayers(player1, player2);
     
         middleInstructions.innerHTML =  "Player " + Players.player + " turn!";
         leftInstructions.innerHTML = "<span class='logo'>X</span><br>Player " + player1;
         rightInstructions.innerHTML =  "<span class='logo'>O</span><br>Player " + player2;
-      }
-    });
 
-    // click on cells
+        document.getElementById("playButton").removeEventListener("click", playButtonHandler);
+
+        Game.cellClicked(player1, player2);
+      }
+    };
+    document.getElementById("playButton").addEventListener("click", playButtonHandler);
+  },
+
+  cellClicked(player1, player2) {
+    const middleInstructions = document.getElementById("middle-instructions");
+    const cells = document.getElementById("cells");
+
     cells.querySelectorAll("div").forEach((cell) => {
       cell.addEventListener("click", (e) => {
         if(Game.gameOver) return;
@@ -128,9 +152,7 @@ const Game = {
   
         if(!Gameboard.taken(cell)) {
           cell.innerHTML = Players.symbol;
-          board[index] = Players.player;
-  
-          console.log(board);
+          Gameboard.board[index] = Players.symbol;
   
           if(Gameboard.checkWins()) {
             middleInstructions.innerHTML = "Winner: Player " + Players.player;
@@ -142,17 +164,11 @@ const Game = {
             Game.gameOver = true;
           } else {
             Players.switchPlayers(player1, player2);
-            // middleInstructions.innerHTML =  "Player " + Players.player + " turn!</br>" + "You are " + Players.symbol + ".";
             middleInstructions.innerHTML =  "Player " + Players.player + " turn!";
           }
         } 
       });
     });
-
-    document.getElementById("restartButton").addEventListener("click", (e) => {
-      Game.restart();
-      Game.start();
-    });   
   },
 
   restart() {

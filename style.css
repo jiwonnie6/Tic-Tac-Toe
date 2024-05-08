@@ -67,6 +67,7 @@ body {
   transform: translateX(-50%);
 
   height: 150px;
+  width: 350px;
 }
 
 .instructions-div {
@@ -83,14 +84,15 @@ body {
   border-radius: 15px;
   background-color: rgb(230, 247, 234);
   padding: 1em;
-  /* padding-top: 10px;
-  padding-bottom: 10px; */
   color: rgb(103, 198, 103);
   text-align: center;
   margin: 0;
   font-size: 12px;
 
-  width: 155px;
+  /* min-width: 10px; */
+
+  width: 110px;
+  height: 50px;
 }
 
 #middle-instructions {
