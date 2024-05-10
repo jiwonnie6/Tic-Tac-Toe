@@ -64,17 +64,16 @@ const Players = {
 };
 
 const Game = {
+  player1:'',
+  player2:'',
   gameOver:false,
 
   start() {
-    let player1 = '';
-    let player2 = '';
-    
     // start button click
     Game.startButtonClick();
 
     // play button click // cells click
-    Game.playButtonClick(player1, player2);
+    Game.playButtonClick();
 
     // restart button click
     document.getElementById("restartButton").addEventListener("click", (e) => {
@@ -90,7 +89,7 @@ const Game = {
     }, {once:true}); 
   },
 
-  playButtonClick(player1, player2) {
+  playButtonClick() {
     const playerInputs = document.getElementById("playerInputs");
     const leftInstructions = document.getElementById("left-instructions");
     const rightInstructions = document.getElementById("right-instructions");
@@ -99,18 +98,18 @@ const Game = {
     const cells = document.getElementById("cells");
 
     const playButtonHandler = () => {
-      player1 = document.getElementById("player1-name").value;
-      player2 = document.getElementById("player2-name").value;
+      Game.player1 = document.getElementById("player1-name").value;
+      Game.player2 = document.getElementById("player2-name").value;
 
-      if(player1 == player2 && player1 != '' && player2 != '') {
+      if(Game.player1 == Game.player2 && Game.player1 != '' && Game.player2 != '') {
         window.alert("Player names cannot be the same.");
         console.log("names cannot be same");
       } 
-      else if (player1 == '' || player2 == '') {
+      else if (Game.player1 == '' || Game.player2 == '') {
         window.alert("Please enter in all fields.");
         console.log("empty field");
       }
-      else if (player1.length > 9 || player2.length > 9) {
+      else if (Game.player1.length > 9 || Game.player2.length > 9) {
         window.alert("10 character limit.");
         console.log("10 character limit");
       }
@@ -125,21 +124,21 @@ const Game = {
         Players.player = null;
         Players.symbol = null;
 
-        Players.switchPlayers(player1, player2);
+        Players.switchPlayers(Game.player1, Game.player2);
     
         middleInstructions.innerHTML =  "Player " + Players.player + " turn!";
-        leftInstructions.innerHTML = "<span class='logo'>X</span><br>Player " + player1;
-        rightInstructions.innerHTML =  "<span class='logo'>O</span><br>Player " + player2;
+        leftInstructions.innerHTML = "<span class='logo'>X</span><br>Player " + Game.player1;
+        rightInstructions.innerHTML =  "<span class='logo'>O</span><br>Player " + Game.player2;
 
         document.getElementById("playButton").removeEventListener("click", playButtonHandler);
 
-        Game.cellClicked(player1, player2);
+        Game.cellClicked();
       }
     };
     document.getElementById("playButton").addEventListener("click", playButtonHandler);
   },
 
-  cellClicked(player1, player2) {
+  cellClicked() {
     const middleInstructions = document.getElementById("middle-instructions");
     const cells = document.getElementById("cells");
 
@@ -163,8 +162,9 @@ const Game = {
             document.getElementById("restartButton").style.visibility = "visible";
             Game.gameOver = true;
           } else {
-            Players.switchPlayers(player1, player2);
+            Players.switchPlayers(Game.player1, Game.player2);
             middleInstructions.innerHTML =  "Player " + Players.player + " turn!";
+            console.log(Players.player);
           }
         } 
       });
